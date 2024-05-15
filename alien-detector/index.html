@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Alien Image Prediction</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function uploadImage() {
+            var formData = new FormData();
+            formData.append('image', $('#imageUpload')[0].files[0]);
+
+            $.ajax({
+                url: '/predict',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.predicted_class == "aliens") {
+                        $('#result').text('This is an alien.');
+                    } else {
+                        $('#result').text('This is NOT an alien.');
+                    }
+                    $('#prob').text('Probability its an alien: '+response.predicted_probabilities);
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Alien Image Prediction</h1>
+    <input type="file" id="imageUpload">
+    <button onclick="uploadImage()">Predict</button>
+    <div id="result"></div>
+    <div id="prob"></div>
+</body>
+</html>
