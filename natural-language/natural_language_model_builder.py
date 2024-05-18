@@ -30,22 +30,9 @@ learn.show_results()
 
 ## Step 5: Use the model
 
-# Text Input Variable
-TEXT_INPUT = "I liked this movie because"
-
-# Prediction Output Variables
-N_WORDS_OUT = 40
-N_SENTENCES_OUT = 2
-
 # Lets get a prediction
-preds = [learn.predict(TEXT_INPUT, N_WORDS_OUT) 
-         for _ in range(N_SENTENCES_OUT)]
-         
-# Lets print the prediction
-print("\n".join(preds))
+learn.predict("I really liked that movie!")
 
 ## Step 6: Export the model
-
 learn.save('finetuned')
 learn.export('model.pkl')
-
